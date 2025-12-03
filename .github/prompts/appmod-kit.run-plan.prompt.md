@@ -20,12 +20,12 @@ Given the additional information to run a plan, do this:
     - Extract the GitHub issue URI from the arguments if you can
     - Validate the URI format if it exists (you can assume that syntax validity is enough)
 
-2. Run the script python .appmod-kit/scripts/python/run_plan.py --json from the repository root and parse its JSON output for GITHUB_ISSUE_URI and PLAN_LOCATION.
+2. Run the script .appmod-kit/scripts/powershell/run-plan.ps1 -Json from the repository root and parse its JSON output for GITHUB_ISSUE_URI and PLAN_LOCATION.
     **IMPORTANT**:
     - Do not prepend any shell interpreter (such as pwsh, etc.) before the command
     - Always append `--json` (Python) or `-Json` (PowerShell) to get JSON output
-    - If you can't detect the argument from step 1, no additional argument should be passed when calling python .appmod-kit/scripts/python/run_plan.py --json.
-    - Append the GitHub issue URI argument to the `python .appmod-kit/scripts/python/run_plan.py --json` command if you extracted it in step 1
+    - If you can't detect the argument from step 1, no additional argument should be passed when calling .appmod-kit/scripts/powershell/run-plan.ps1 -Json.
+    - Append the GitHub issue URI argument to the `.appmod-kit/scripts/powershell/run-plan.ps1 -Json` command if you extracted it in step 1
         - Python: `--github-issue-uri "extracted-github-issue-uri"`
         - PowerShell: `-GitHubIssueUri "extracted-github-issue-uri"`
     - For single quotes in arguments like "I'm Groot", use escape syntax: e.g 'I'\''m Groot' (or double-quote if possible: "I'm Groot")

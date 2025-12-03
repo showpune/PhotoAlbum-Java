@@ -34,10 +34,10 @@ Given that modernization description, do this:
    - Extract the GitHub issue URI from the arguments if you can
    - Validate the URI format if it exists (you can assume that syntax validity is enough)
 
-3. Run `python .appmod-kit/scripts/python/create_plan.py --json` with args short-name and github-issue-uri from the repo root and parse its JSON output.
+3. Run `.appmod-kit/scripts/powershell/create-plan.ps1 -Json` with args short-name and github-issue-uri from the repo root and parse its JSON output.
    **IMPORTANT**:
-   - Append the short-name argument `--short-name "your-generated-short-name"` to the `python .appmod-kit/scripts/python/create_plan.py --json` command with the 5-10 word short name you created in step 1.
-   - Append the GitHub issue URI argument `--github-issue-uri "extracted-github-issue-uri"` to the `python .appmod-kit/scripts/python/create_plan.py --json` command if you extracted it in step 2.
+   - Append the short-name argument `-ShortName "your-generated-short-name"` to the `.appmod-kit/scripts/powershell/create-plan.ps1 -Json` command with the 5-10 word short name you created in step 1.
+   - Append the GitHub issue URI argument `-GitHubIssueUri "extracted-github-issue-uri"` to the `.appmod-kit/scripts/powershell/create-plan.ps1 -Json` command if you extracted it in step 2.
    - For single quotes in arguments like "I'm Groot", use escape syntax: e.g 'I'\''m Groot' (or double-quote if possible: "I'm Groot")
    - You must only ever run this script once
    - The JSON is provided in the terminal as output - always refer to it to get the actual content you're looking for
@@ -48,7 +48,7 @@ Given that modernization description, do this:
 
 5. Create a modernization plan
     1) Read the file ".appmod-kit/templates/plan-template.md" from the project path to get a plan template for generating a modernization plan.
-    2) Save it in the plan folder created by `python .appmod-kit/scripts/python/create_plan.py --json` with the filename plan.md. If a plan already exists, overwrite it.
+    2) Save it in the plan folder created by `.appmod-kit/scripts/powershell/create-plan.ps1 -Json` with the filename plan.md. If a plan already exists, overwrite it.
     3) Read the solution information using MCP tool **appmod-list-all-solutions** to access the knowledge base and learn about the mapping of issue rule IDs to solution IDs in order to solve issues.
     4) **appmod-list-all-solutions NOT FOUND** Stop to create plan if MCP tool **appmod-list-all-solutions** is not found and ask user to install the MCP server for migration
     
@@ -70,7 +70,7 @@ Given that modernization description, do this:
     2) After user clarified, update the plan
     3) If user skip the issues, find a solution automatically
 
-4. Make a git commit with message "chore: create modernization plan --short-name" to save the plan.md
+4. Make a git commit with message "chore: create modernization plan -ShortName" to save the plan.md
 
 5. Using the 'github-mcp-server' tool, add a new comment to the GitHub issue URI (GITHUB_ISSUE_URI) with the plan summary. In the summary, state "Plan creation succeeded" and give a summary of the plan, specifically, the number of tasks and a summary of each task.
 
