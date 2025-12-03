@@ -43,7 +43,7 @@ While you may use tools like AppCat to perform the assessment, do not use these 
    - Use the mcp tool 'appmod-run-assessment' to run the assessment.
    - Both tools will take some time to run; wait patiently.
 
-4. Run `python .appmod-kit/scripts/python/assess.py --json --output-path .github/appmod/appcat/result --issue-source other` from the repo root, set the issue source parameter value to azuremigrate if step2 detected the source is azure migrate.
+4. Run `.appmod-kit/scripts/powershell/assess.ps1 -Json -OutputPath .github/appmod/appcat/result -IssueSource other` from the repo root, set the issue source parameter value to azuremigrate if step2 detected the source is azure migrate.
 
 5. When the script is done, verify that the file `.github/appmod/appcat/result/summary.md` is present.
 
