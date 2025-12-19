@@ -1,0 +1,7 @@
+
+*
+!.gitignore
+!assessment-config.yaml
+!assessment-plan.md
+!result/
+!result/summary.md
