@@ -16,7 +16,8 @@ The comprehensive migration plan for migrating the Photo Album Java application 
 - Testing strategy
 - Success criteria
 
-**Purpose**: Serves as the master plan for the entire migration project.
+**Purpose**: Serves as the master plan for the entire migration project.  
+**Lines**: 650+ | **Status**: ✅ Complete
 
 ### 2. appkit-initialization.md
 Guide for initializing and using Azure App Modernization toolkit (appmod-kit) with this project. This document includes:
@@ -28,7 +29,36 @@ Guide for initializing and using Azure App Modernization toolkit (appmod-kit) wi
 - Best practices
 - Troubleshooting guide
 
-**Purpose**: Provides practical guidance on using appmod-kit tools and following Azure migration best practices.
+**Purpose**: Provides practical guidance on using appmod-kit tools and following Azure migration best practices.  
+**Lines**: 450+ | **Status**: ✅ Complete
+
+### 3. QUICKSTART.md
+Developer quick start guide with step-by-step instructions for:
+
+- Setting up local development environment
+- Installing PostgreSQL locally
+- Updating application dependencies
+- Testing with local and Azure PostgreSQL
+- Building and pushing Docker images to ACR
+- Common commands reference
+- Troubleshooting tips
+
+**Purpose**: Get developers up and running quickly with hands-on migration tasks.  
+**Lines**: 450+ | **Status**: ✅ Complete
+
+### 4. PROJECT-STATUS.md
+Current status tracker for the Azure migration initiative:
+
+- Phase completion tracking
+- Architecture diagrams
+- Timeline and milestones
+- Success metrics
+- Risk tracking
+- Team roles and responsibilities
+- Quick links to all resources
+
+**Purpose**: Central dashboard for tracking migration progress and status.  
+**Lines**: 400+ | **Status**: ✅ Complete
 
 ## How to Use These Documents
 
@@ -65,10 +95,16 @@ Guide for initializing and using Azure App Modernization toolkit (appmod-kit) wi
 
 ## Quick Links
 
-- [Main Migration Plan](./appmod-kit.create-plan.prompt.md)
-- [AppKit Initialization Guide](./appkit-initialization.md)
-- [Project README](../../README.md)
+### Documentation
+- [📋 Main Migration Plan](./appmod-kit.create-plan.prompt.md) - Comprehensive 8-phase plan
+- [🛠️ AppKit Initialization Guide](./appkit-initialization.md) - Tools and best practices
+- [🚀 Quick Start Guide](./QUICKSTART.md) - Developer getting started
+- [📊 Project Status](./PROJECT-STATUS.md) - Current progress tracking
+
+### Repository
+- [Main Project README](../../README.md)
 - [Azure Setup Script](../../azure-setup.ps1)
+- [Azure Reset Script](../../azure-reset.ps1)
 
 ## Contributing
 
