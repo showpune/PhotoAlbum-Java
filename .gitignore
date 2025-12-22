@@ -250,6 +250,7 @@ PhotoAlbum/wwwroot/uploads/*
 .azure/*
 !.azure/plan.copilotmd
 !.azure/progress.copilotmd
+!.azure/APPMOD_INIT_SUMMARY.md
 
 # Logs
 *.log
