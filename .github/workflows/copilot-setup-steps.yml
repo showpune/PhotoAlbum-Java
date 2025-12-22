@@ -26,13 +26,7 @@ jobs:
     # If you do not check out your code, Copilot will do this for you.
     steps:
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: "npm"
-
-      - name: Install JavaScript dependencies
+      - name: Init private npm feed
         shell: bash
         run: |
             FEED_PATH="devdiv.pkgs.visualstudio.com/DevDiv/_packaging/zhiyongtest/npm/registry/"
