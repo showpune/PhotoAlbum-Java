@@ -248,6 +248,9 @@ PhotoAlbum/wwwroot/uploads/*
 
 # Azure Developer CLI
 .azure/
+# But keep documentation files
+!.azure/*.md
+!.azure/*.copilotmd
 
 # Logs
 *.log
