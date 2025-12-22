@@ -246,8 +246,10 @@ PhotoAlbum/wwwroot/uploads/*
 # Environment variables
 .env
 
-# Azure Developer CLI
-.azure/
+# Azure Developer CLI - ignore runtime files but keep plan and progress
+.azure/*
+!.azure/plan.copilotmd
+!.azure/progress.copilotmd
 
 # Logs
 *.log
