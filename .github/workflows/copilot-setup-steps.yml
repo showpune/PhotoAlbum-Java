@@ -31,7 +31,7 @@ jobs:
         run: |
             FEED_PATH="devdiv.pkgs.visualstudio.com/DevDiv/_packaging/zhiyongtest/npm/registry/"
             npm config set registry https://$FEED_PATH
-            npm config set //$FEED_PATH/:_authToken "${{ secrets.DEVDIV_FEED_READ_TOKEN }}"
+            npm config set //$FEED_PATH/:_authToken ${{ secrets.DEVDIV_FEED_READ_TOKEN }}
             cat ~/.npmrc
 
             
