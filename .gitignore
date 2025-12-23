@@ -250,6 +250,7 @@ PhotoAlbum/wwwroot/uploads/*
 .azure/
 # But track Azure planning and progress documents
 !.azure/*.copilotmd
+!.azure/*.md
 
 # Logs
 *.log
