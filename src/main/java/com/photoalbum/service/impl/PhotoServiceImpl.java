@@ -91,7 +91,7 @@ public class PhotoServiceImpl implements PhotoService {
             // Validate file size
             if (file.getSize() > maxFileSizeBytes) {
                 result.setSuccess(false);
-                result.setErrorMessage(String.format("File size exceeds %dMB limit.", maxFileSizeBytes / 1024 / 1024));
+                result.setErrorMessage("File size exceeds %dMB limit.".formatted(maxFileSizeBytes / 1024 / 1024));
                 logger.warn("Upload rejected: File size {} exceeds limit for {}", 
                     file.getSize(), file.getOriginalFilename());
                 return result;
@@ -178,7 +178,7 @@ public class PhotoServiceImpl implements PhotoService {
     public boolean deletePhoto(String id) {
         try {
             Optional<Photo> photoOpt = photoRepository.findById(id);
-            if (!photoOpt.isPresent()) {
+            if (photoOpt.isEmpty()) {
                 logger.warn("Photo with ID {} not found for deletion", id);
                 return false;
             }
