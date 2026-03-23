@@ -21,6 +21,16 @@
         "passUnitTests": "true",
         "passIntegrationTests": "false",
         "securityComplianceCheck": "false"
+      },
+      "status": "started",
+      "taskSummary": "",
+      "successCriteriaStatus": {
+        "passBuild": null,
+        "generateNewUnitTests": null,
+        "generateNewIntegrationTests": null,
+        "passUnitTests": null,
+        "passIntegrationTests": null,
+        "securityComplianceCheck": null
       }
     },
     {
