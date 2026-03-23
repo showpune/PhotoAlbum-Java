@@ -53,13 +53,13 @@
         "passIntegrationTests": "false",
         "securityComplianceCheck": "false"
       },
-      "status": "started",
-      "taskSummary": "",
+      "status": "success",
+      "taskSummary": "Successfully migrated to Azure Database for PostgreSQL with Managed Identity authentication. Added azure-identity-extensions:1.2.2 to pom.xml for AzurePostgresqlAuthenticationPlugin. Updated application.properties and application-docker.properties with Azure PostgreSQL FQDN endpoint (${AZURE_POSTGRESQL_FQDN}), Managed Identity username (${AZURE_MI_NAME}), SSL mode required, and AzurePostgresqlAuthenticationPlugin. Removed hardcoded passwords. Build and unit tests pass.",
       "successCriteriaStatus": {
-        "passBuild": null,
+        "passBuild": "true",
         "generateNewUnitTests": null,
         "generateNewIntegrationTests": null,
-        "passUnitTests": null,
+        "passUnitTests": "true",
         "passIntegrationTests": null,
         "securityComplianceCheck": null
       }
