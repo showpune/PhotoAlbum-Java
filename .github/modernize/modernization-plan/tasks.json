@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Tasks template for modernization plan. Generate this file alongside plan.md to track individual migration tasks.",
+  "tasks": [
+    {
+      "type": "upgrade",
+      "id": "001-upgrade-spring-boot-3x",
+      "description": "Upgrade Spring Boot to 3.x (includes JDK 17, Spring Framework 6.x, and javax.* to jakarta.* migration)",
+      "requirements": "Upgrade the project from Spring Boot 2.7.18 on Java 8 to Spring Boot 3.x on Java 17. This includes: upgrading the Maven POM parent to Spring Boot 3.x, updating the Java compiler version to 17, migrating all javax.* imports to jakarta.* (e.g., javax.imageio, javax.persistence), and ensuring all existing tests pass after the upgrade.",
+      "environmentConfiguration": null,
+      "status": null,
+      "skills": [
+        {
+          "name": "execute-upgrade-task",
+          "location": "builtin"
+        }
+      ],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "generateNewIntegrationTests": "false",
+        "passUnitTests": "true",
+        "passIntegrationTests": "false",
+        "securityComplianceCheck": "false"
+      }
+    },
+    {
+      "type": "transform",
+      "id": "002-transform-oracle-to-postgresql",
+      "description": "Migrate Oracle DB to PostgreSQL",
+      "requirements": "Migrate the application from Oracle DB to PostgreSQL. This includes: replacing the Oracle JDBC driver (ojdbc8) with the PostgreSQL JDBC driver, updating Spring datasource configuration (URL, driver class, dialect), updating JPA/Hibernate dialect from OracleDialect to PostgreSQLDialect, and ensuring the Photo entity BLOB column (photo_data) is compatible with PostgreSQL bytea. All existing repository queries should continue to work after migration.",
+      "environmentConfiguration": null,
+      "status": null,
+      "skills": [
+        {
+          "name": "migration-oracle-to-postgresql",
+          "location": "project"
+        }
+      ],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "generateNewIntegrationTests": "false",
+        "passUnitTests": "true",
+        "passIntegrationTests": "false",
+        "securityComplianceCheck": "false"
+      }
+    },
+    {
+      "type": "transform",
+      "id": "003-transform-postgresql-to-azure-postgresql-mi",
+      "description": "Migrate PostgreSQL to Azure Database for PostgreSQL with Managed Identity",
+      "requirements": "Migrate the application from a local/self-hosted PostgreSQL instance to Azure Database for PostgreSQL using Managed Identity for secure, credential-free authentication. This includes: integrating the Azure Identity SDK for token-based authentication, replacing JDBC username/password credentials with Managed Identity token provider, updating application.properties for the Azure PostgreSQL endpoint, and ensuring the application connects successfully without storing credentials in configuration files.",
+      "environmentConfiguration": null,
+      "status": null,
+      "skills": [
+        {
+          "name": "migration-mi-postgresql-azure-sdk-public-cloud",
+          "location": "project"
+        }
+      ],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "generateNewIntegrationTests": "false",
+        "passUnitTests": "true",
+        "passIntegrationTests": "false",
+        "securityComplianceCheck": "false"
+      }
+    }
+  ],
+  "metadata": {
+    "planName": "modernization-plan",
+    "projectName": "PhotoAlbum",
+    "language": "java",
+    "createdAt": "2026-04-23T10:45:39.126Z",
+    "version": "1.0"
+  }
+}
