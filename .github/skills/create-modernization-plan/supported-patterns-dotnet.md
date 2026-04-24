@@ -40,3 +40,5 @@ A pattern should be selected if it matches one of the customer's requirements, a
 **IMPORTANT**:
 - NEVER write the pattern name as skill name in the generated plan.
 - Tasks generated from these patterns must have NO skill assigned. Do not reuse any skill from the "Task Patterns with Skill Definitions" section, even if a skill targets a similar technology or appears related.
+
+
