@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Tasks template for modernization plan. Generate this file alongside plan.md to track individual migration tasks.",
+  "tasks": [
+    {
+      "type": "transform",
+      "id": "001-transform-migration-oracle-to-postgresql",
+      "description": "Migrate Oracle Database-specific code to PostgreSQL-compatible code. This includes replacing Oracle-specific SQL constructs (ROWNUM pagination, TO_CHAR date functions, NVL null handling, RANK/SUM analytical window functions), updating the JDBC driver from ojdbc8 to PostgreSQL JDBC driver, switching the Hibernate dialect from OracleDialect to PostgreSQLDialect, updating datasource configuration properties, and converting Oracle DDL initialization scripts to PostgreSQL-compatible syntax.",
+      "requirements": "Migrate all Oracle-specific SQL in PhotoRepository.java to PostgreSQL equivalents: replace ROWNUM-based pagination with LIMIT/OFFSET, replace TO_CHAR(date, 'YYYY') with EXTRACT(YEAR FROM date) or DATE_PART, replace NVL with COALESCE, and ensure RANK() OVER / SUM() OVER window functions use PostgreSQL syntax. Update pom.xml to remove ojdbc8 and add postgresql JDBC dependency. Update application.properties to use PostgreSQL driver class (org.postgresql.Driver) and update spring.jpa.database-platform to PostgreSQLDialect. Convert oracle-init SQL scripts to PostgreSQL-compatible syntax. Do not change any business logic.",
+      "environmentConfiguration": null,
+      "skills": [
+        {
+          "name": "migration-oracle-to-postgresql",
+          "location": "builtin"
+        }
+      ],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "generateNewIntegrationTests": "false",
+        "passUnitTests": "true",
+        "passIntegrationTests": "false",
+        "securityComplianceCheck": "false"
+      }
+    },
+    {
+      "type": "transform",
+      "id": "002-transform-migration-postgresql-to-azure-postgresql-managed-identity",
+      "description": "Migrate from local/plain PostgreSQL connection to Azure Database for PostgreSQL Flexible Server with Managed Identity for secure, credential-free authentication. This replaces username/password credentials with Azure Managed Identity token-based authentication using the Azure SDK.",
+      "requirements": "Update the application to connect to Azure Database for PostgreSQL Flexible Server using Managed Identity (passwordless) authentication. Add Azure SDK dependencies (azure-identity, azure-postgresql integration) to pom.xml. Configure the datasource to use Managed Identity token provider instead of a static password. Update application.properties with the Azure PostgreSQL FQDN endpoint and Managed Identity-based connection configuration. Ensure no secrets or passwords are hardcoded in the application configuration.",
+      "environmentConfiguration": null,
+      "skills": [
+        {
+          "name": "migration-mi-postgresql-azure-sdk-public-cloud",
+          "location": "builtin"
+        }
+      ],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "generateNewIntegrationTests": "false",
+        "passUnitTests": "true",
+        "passIntegrationTests": "false",
+        "securityComplianceCheck": "false"
+      }
+    }
+  ],
+  "metadata": {
+    "planName": "plan2",
+    "projectName": "Photo Album",
+    "language": "java",
+    "createdAt": "2026-03-23T07:35:35.649Z",
+    "version": "1.0"
+  }
+}
