@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Tasks template for modernization plan. Generate this file alongside plan.md to track individual migration tasks.",
+  "tasks": [
+    {
+      "type": "transform",
+      "id": "001-transform-oracle-to-postgresql",
+      "description": "Migrate the database layer from Oracle Database to Azure Database for PostgreSQL",
+      "reason": "The application currently uses Oracle Database with Oracle-specific JDBC driver, SQL dialect, and configuration. Migrating to Azure Database for PostgreSQL provides a fully managed, cloud-native database service that reduces licensing costs and aligns with the Azure modernization strategy.",
+      "requirements": "Migrate the application database layer from Oracle to Azure Database for PostgreSQL. Replace the Oracle JDBC driver (ojdbc8) with the PostgreSQL JDBC driver. Update datasource configuration in application.properties and application-docker.properties to use PostgreSQL connection settings. Convert any Oracle-specific SQL syntax, sequences, or data types to PostgreSQL equivalents. Replace Oracle Hibernate dialect with PostgreSQL dialect.",
+      "skills": [
+        {
+          "name": "migration-oracle-to-postgresql",
+          "location": "builtin"
+        }
+      ],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "passUnitTests": "true"
+      }
+    },
+    {
+      "type": "transform",
+      "id": "002-transform-mi-postgresql",
+      "description": "Enable Azure Managed Identity authentication for the Azure Database for PostgreSQL connection",
+      "reason": "The application currently uses hardcoded username and password credentials in application.properties and application-docker.properties for database authentication. Per organisational security policy, sensitive credentials must not be stored in source code or configuration files. Managed Identity provides passwordless authentication without any secrets to manage.",
+      "requirements": "Migrate the PostgreSQL datasource authentication from password-based credentials to Azure Managed Identity. Remove hardcoded database passwords from all configuration files. Update Spring Cloud Azure dependencies to support passwordless authentication for Azure Database for PostgreSQL.",
+      "dependencies": [
+        "001-transform-oracle-to-postgresql"
+      ],
+      "skills": [
+        {
+          "name": "migration-mi-postgresql",
+          "location": "builtin"
+        }
+      ],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "passUnitTests": "true"
+      }
+    }
+  ],
+  "metadata": {
+    "planName": "migrate-postgresql",
+    "projectName": "Photo Album",
+    "language": "java",
+    "createdAt": "2026-04-24T08:35:41.800Z",
+    "version": "1.0"
+  }
+}
