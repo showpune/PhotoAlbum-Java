@@ -46,9 +46,3 @@ A complete list of Azure resources to be generated.
 **Success Criteria**:
 - IaC files generated and validated
 - Resources provisioned successfully (if Provision=true)
-
----
-
-## Clarifications
-
-[Optional: Only list the most critical items that MUST be confirmed before provisioning. Keep it minimal.]
