@@ -1,3 +1,4 @@
--- Health check script for Oracle DB - test both system and photoalbum user
-SELECT 1 FROM DUAL;
-exit;
+-- Migrated from Oracle to PostgreSQL according to SQL check item 3: Remove FROM DUAL in SELECT statements that only return values.
+-- Migrated from Oracle to PostgreSQL according to SQL check item 9999: Migrate Oracle-specific health check to PostgreSQL.
+-- Health check script for PostgreSQL DB
+SELECT 1;

@@ -21,6 +21,16 @@
         "passUnitTests": "true",
         "passIntegrationTests": "false",
         "securityComplianceCheck": "false"
+      },
+      "status": "success",
+      "taskSummary": "Successfully migrated Oracle-specific code to PostgreSQL. Updated pom.xml replacing ojdbc8 with postgresql:42.7.7, updated application.properties and application-docker.properties with PostgreSQL driver/dialect/URL, migrated PhotoRepository.java SQL (ROWNUM→LIMIT/OFFSET, NVL→COALESCE, TO_CHAR→EXTRACT), updated Photo.java column types, and converted oracle-init SQL scripts to PostgreSQL-compatible syntax. Build and unit tests pass.",
+      "successCriteriaStatus": {
+        "passBuild": "true",
+        "generateNewUnitTests": null,
+        "generateNewIntegrationTests": null,
+        "passUnitTests": "true",
+        "passIntegrationTests": null,
+        "securityComplianceCheck": null
       }
     },
     {
@@ -42,6 +52,16 @@
         "passUnitTests": "true",
         "passIntegrationTests": "false",
         "securityComplianceCheck": "false"
+      },
+      "status": "success",
+      "taskSummary": "Successfully migrated to Azure Database for PostgreSQL with Managed Identity authentication. Added azure-identity-extensions:1.2.2 to pom.xml for AzurePostgresqlAuthenticationPlugin. Updated application.properties and application-docker.properties with Azure PostgreSQL FQDN endpoint (${AZURE_POSTGRESQL_FQDN}), Managed Identity username (${AZURE_MI_NAME}), SSL mode required, and AzurePostgresqlAuthenticationPlugin. Removed hardcoded passwords. Build and unit tests pass.",
+      "successCriteriaStatus": {
+        "passBuild": "true",
+        "generateNewUnitTests": null,
+        "generateNewIntegrationTests": null,
+        "passUnitTests": "true",
+        "passIntegrationTests": null,
+        "securityComplianceCheck": null
       }
     }
   ],
