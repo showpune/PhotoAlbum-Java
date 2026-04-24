@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Tasks template for modernization plan. Generate this file alongside plan.md to track individual migration tasks.",
+  "tasks": [
+    {
+      "type": "upgrade",
+      "id": "001-upgrade-springboot3",
+      "description": "Upgrade the application from Java 8 / Spring Boot 2.7.18 to Java 17 / Spring Boot 3.x (latest stable), including migration of javax.* APIs to jakarta.*.",
+      "reason": "Java 8 and 11 are end-of-life for internal use per the Acme Corp playbook. Spring Boot 2.x applications must be upgraded. Spring Boot 3.x requires a minimum of Java 17.",
+      "requirements": "Upgrade Java source/target from 8 to 17, upgrade Spring Boot parent from 2.7.18 to the latest Spring Boot 3.x stable release, migrate all javax.* imports to jakarta.*, and resolve any Spring Boot 3.x breaking changes (e.g., property renames, dependency updates).",
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "passUnitTests": "true"
+      }
+    },
+    {
+      "type": "transform",
+      "id": "002-transform-oracle-to-postgresql",
+      "description": "Migrate the application's data layer from Oracle Database to Azure Database for PostgreSQL with Managed Identity authentication.",
+      "reason": "Oracle Database is not an approved Azure target data service. Azure Database for PostgreSQL is the approved alternative. Managed Identity removes the need for hardcoded connection credentials.",
+      "requirements": "Replace the Oracle JDBC driver (ojdbc8) and OracleDialect with the PostgreSQL JDBC driver and PostgreSQL dialect. Migrate all Oracle-specific SQL or JPA configuration to be PostgreSQL-compatible. Configure the data source to connect to Azure Database for PostgreSQL using Managed Identity (credential-free authentication).",
+      "dependencies": ["001-upgrade-springboot3"],
+      "skills": [
+        {
+          "name": "migration-oracle-to-postgresql",
+          "location": "builtin"
+        }
+      ],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "passUnitTests": "true"
+      }
+    },
+    {
+      "type": "transform",
+      "id": "003-transform-credentials-to-keyvault",
+      "description": "Migrate all sensitive configuration values (database credentials and connection strings) from application.properties to Azure Key Vault accessed via Managed Identity.",
+      "reason": "Hardcoded credentials in application.properties are prohibited by the Acme Corp security policy. Azure Key Vault with Managed Identity is the mandated secrets management solution.",
+      "requirements": "Remove plaintext credentials (spring.datasource.username, spring.datasource.password, and any other sensitive values) from application.properties and application-docker.properties. Store these secrets in Azure Key Vault and configure the application to retrieve them via the Spring Cloud Azure Key Vault starter using Managed Identity.",
+      "dependencies": ["001-upgrade-springboot3"],
+      "skills": [
+        {
+          "name": "migration-plaintext-credential-to-azure-keyvault",
+          "location": "builtin"
+        }
+      ],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "passUnitTests": "true"
+      }
+    },
+    {
+      "type": "transform",
+      "id": "004-transform-logging-to-internallogger",
+      "description": "Replace all SLF4J (org.slf4j.Logger / LoggerFactory) usages with the internal InternalLogger (com.acme.logging.InternalLogger) throughout the application.",
+      "reason": "SLF4J does not integrate with the internal trace-context propagation system. Policy mandates use of InternalLogger for all application logging to ensure structured JSON output with trace correlation, team ownership tags, and environment/region tags.",
+      "requirements": "Replace every instance of org.slf4j.Logger and LoggerFactory.getLogger(...) in all controllers (HomeController, PhotoFileController, DetailController), services (PhotoServiceImpl), and utilities with com.acme.logging.InternalLogger. Ensure all log statements (info, warn, error, debug) use InternalLogger APIs and produce structured output with trace context.",
+      "dependencies": ["001-upgrade-springboot3"],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "passUnitTests": "true"
+      }
+    },
+    {
+      "type": "transform",
+      "id": "005-transform-errorhandling-to-result",
+      "description": "Replace exception-based business-logic flow control with the Result<T> pattern (com.acme.commons.Result) across service and controller layers.",
+      "reason": "Exception-based flow control (throw/catch for business logic) is prohibited per the P0-2024-0847 post-incident mandate. The Result<T> pattern is the approved approach for explicit error handling without cascading failures.",
+      "requirements": "Refactor PhotoService and PhotoServiceImpl to return Result<T> (Result.success() / Result.failure()) instead of throwing exceptions for business-logic errors (e.g., file validation failures, not-found conditions, upload errors). Update controllers to consume Result<T> and translate failures to appropriate HTTP responses via a standard response wrapper rather than exception handlers. Do not catch system-level exceptions (e.g., OutOfMemoryError) as part of this change.",
+      "dependencies": ["001-upgrade-springboot3"],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "passUnitTests": "true"
+      }
+    }
+  ],
+  "metadata": {
+    "planName": "modernization-plan",
+    "projectName": "PhotoAlbum-Java",
+    "language": "java",
+    "createdAt": "2026-04-24T05:49:16.189Z",
+    "version": "1.0"
+  }
+}
