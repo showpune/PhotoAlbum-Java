@@ -60,7 +60,8 @@ public class Photo {
      */
     @NotNull
     @Positive
-    @Column(name = "file_size", nullable = false, columnDefinition = "NUMBER(19,0)")
+    // Migrated from Oracle to PostgreSQL according to SQL check item 2: Replace Oracle-specific data types with PostgreSQL equivalents (NUMBER→BIGINT).
+    @Column(name = "file_size", nullable = false, columnDefinition = "BIGINT")
     private Long fileSize;
 
     /**
@@ -75,7 +76,8 @@ public class Photo {
      * Timestamp of upload
      */
     @NotNull
-    @Column(name = "uploaded_at", nullable = false, columnDefinition = "TIMESTAMP DEFAULT SYSTIMESTAMP")
+    // Migrated from Oracle to PostgreSQL according to SQL check item 9999: Replace Oracle SYSTIMESTAMP with PostgreSQL CURRENT_TIMESTAMP.
+    @Column(name = "uploaded_at", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime uploadedAt;
 
     /**
