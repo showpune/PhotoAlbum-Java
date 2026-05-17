@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Tasks template for modernization plan. Generate this file alongside plan.md to track individual migration tasks.",
+  "tasks": [
+    {
+      "type": "transform",
+      "id": "001-transform-migrate-oracle-to-postgresql",
+      "description": "Migrate the application data layer from Oracle DB to PostgreSQL",
+      "reason": "The application currently uses Oracle DB with an Oracle JDBC driver, Oracle-specific Hibernate dialect, and Oracle-specific SQL. Migrating to PostgreSQL replaces these proprietary dependencies with open-source equivalents and prepares the application for Azure Database for PostgreSQL.",
+      "requirements": "Replace the Oracle JDBC driver (ojdbc8) with the PostgreSQL JDBC driver. Update the Hibernate dialect from OracleDialect to PostgreSQLDialect. Convert any Oracle-specific SQL syntax and DDL to PostgreSQL-compatible equivalents. Update application.properties datasource configuration (URL, driver class, dialect) to target a PostgreSQL database.",
+      "skills": [
+        {
+          "name": "migration-oracle-to-postgresql",
+          "location": "project"
+        }
+      ],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "passUnitTests": "true"
+      }
+    },
+    {
+      "type": "transform",
+      "id": "002-transform-migrate-postgresql-to-azure-postgresql-mi",
+      "description": "Migrate PostgreSQL connection to Azure Database for PostgreSQL with Managed Identity authentication",
+      "reason": "After migrating to PostgreSQL, the connection must be upgraded to target Azure Database for PostgreSQL with secure, credential-free authentication using Azure Managed Identity. Hardcoded credentials in application.properties are prohibited per policy.",
+      "requirements": "Update the Spring datasource configuration to target Azure Database for PostgreSQL. Replace password-based authentication with Azure Managed Identity using the Azure Identity SDK. Remove hardcoded credentials from application.properties. Ensure the application connects to Azure Database for PostgreSQL using a managed identity token.",
+      "dependencies": [
+        "001-transform-migrate-oracle-to-postgresql"
+      ],
+      "skills": [
+        {
+          "name": "migration-mi-postgresql-azure-sdk-public-cloud",
+          "location": "project"
+        }
+      ],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "passUnitTests": "true"
+      }
+    }
+  ],
+  "metadata": {
+    "planName": "modernization-plan",
+    "projectName": "Photo Album",
+    "language": "java",
+    "createdAt": "2026-04-24T05:32:03Z",
+    "version": "1.0"
+  }
+}
