@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Tasks template for modernization plan. Generate this file alongside plan.md to track individual migration tasks.",
+  "tasks": [
+    {
+      "type": "upgrade",
+      "id": "001-upgrade-springboot3",
+      "description": "Upgrade the application from Spring Boot 2.7.18 and Java 8 to Spring Boot 3.x and Java 17",
+      "reason": "Java 8 and Spring Boot 2.x are end-of-life and prohibited per the Acme Corp Modernization Playbook hard boundaries. Upgrading to Spring Boot 3.x and Java 17 (LTS) is a mandatory prerequisite for all subsequent migration tasks.",
+      "requirements": "Upgrade from Spring Boot 2.7.18 and Java 8 to Spring Boot 3.x (latest stable) and Java 17 (LTS) as required by the Acme Corp targets.md. Migrate all javax.* imports to jakarta.* for Jakarta EE compatibility. Ensure all existing tests continue to pass after the upgrade.",
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "passUnitTests": "true"
+      }
+    },
+    {
+      "type": "transform",
+      "id": "002-transform-oracle-to-postgresql",
+      "description": "Migrate the application's data layer from Oracle DB to PostgreSQL",
+      "reason": "The application currently uses Oracle DB (ojdbc8). The user has requested migration to Azure Database for PostgreSQL, which requires replacing Oracle-specific SQL, dialects, and the JDBC driver with PostgreSQL equivalents.",
+      "requirements": "Replace the Oracle JDBC driver (ojdbc8) with the PostgreSQL JDBC driver. Update JPA/Hibernate dialect settings to PostgreSQL. Migrate Oracle-specific SQL syntax and sequences to PostgreSQL-compatible equivalents. Ensure schema and data compatibility.",
+      "dependencies": [
+        "001-upgrade-springboot3"
+      ],
+      "skills": [
+        {
+          "name": "migration-oracle-to-postgresql",
+          "location": "project"
+        }
+      ],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "passUnitTests": "true"
+      }
+    },
+    {
+      "type": "transform",
+      "id": "003-transform-postgresql-managed-identity",
+      "description": "Configure Managed Identity authentication for Azure Database for PostgreSQL",
+      "reason": "Per the Acme Corp Modernization Playbook, all service-to-service authentication must use Managed Identity and hardcoded credentials are prohibited. Password-based database connections must be replaced with credential-free Managed Identity authentication.",
+      "requirements": "Replace password-based database authentication with Azure Managed Identity for Azure Database for PostgreSQL. Remove hardcoded credentials from application.yml / application.properties. Configure the application to obtain access tokens using Managed Identity for database connections to Azure Database for PostgreSQL in the public cloud.",
+      "dependencies": [
+        "002-transform-oracle-to-postgresql"
+      ],
+      "skills": [
+        {
+          "name": "migration-mi-postgresql-azure-sdk-public-cloud",
+          "location": "project"
+        }
+      ],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "passUnitTests": "true"
+      }
+    }
+  ],
+  "metadata": {
+    "planName": "modernization-plan",
+    "projectName": "PhotoAlbum-Java",
+    "language": "java",
+    "createdAt": "2026-04-24T07:01:38.843Z",
+    "version": "1.0"
+  }
+}
